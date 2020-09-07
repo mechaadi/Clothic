@@ -1,22 +1,44 @@
-import 'package:clothic/views/ActiveDonations.dart';
-import 'package:clothic/views/HomePage.dart';
-import 'package:clothic/views/Profile.dart';
+import 'package:clothic/providers/auth_provider.dart';
+import 'package:clothic/providers/user_provider.dart';
+import 'package:clothic/views/Login.dart';
+import 'package:clothic/views/Wrapper.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Color(0xff1b1b1b)));
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    final FirebaseServices firebaseServices = FirebaseServices();
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthProvider>(
+          create: (_) => AuthProvider(),
+        ),
+        StreamProvider(
+          create: (_) => firebaseServices.streamHero(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        darkTheme: ThemeData.dark(),
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: MyHomePage(),
       ),
-      home: MyHomePage(),
     );
   }
 }
@@ -29,47 +51,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  static List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    ActiveDonations(),
-    ProfilePage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.track_changes),
-            title: Text('Active Donations'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('Profile'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
-      ),
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
 
-      appBar: AppBar(
-        title: Text("Clothic"),
-      ),
-      body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    AuthProvider authProvider = Provider.of(context);
+
+    return Padding(
+        padding: EdgeInsets.only(top: statusBarHeight),
+        child: authProvider.isAuthenticated ? WrapperPage() : LoginPage());
   }
 }

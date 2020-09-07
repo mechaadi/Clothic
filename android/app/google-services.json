@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "963894105973",
+    "firebase_url": "https://a7aclothic.firebaseio.com",
+    "project_id": "a7aclothic",
+    "storage_bucket": "a7aclothic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963894105973:android:626ed2ddc52c2dce03653c",
+        "android_client_info": {
+          "package_name": "com.example.clothic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963894105973-qe81qa1g7i2lodhc8t2ubk0c39qoaj76.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAapvsp_7XVbTto_nZf_9WI5vBQHtOLMK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963894105973-qe81qa1g7i2lodhc8t2ubk0c39qoaj76.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
