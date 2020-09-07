@@ -41,7 +41,7 @@ class _WrapperPageState extends State<WrapperPage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Colors.red,
         onTap: _onItemTapped,
       ),
       body: Padding(

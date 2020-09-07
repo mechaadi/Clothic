@@ -27,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Color(0xff1b1b1b),
         body: SingleChildScrollView(
             child: Padding(
-          padding: EdgeInsets.only(left: 8, right: 8),
+          padding: EdgeInsets.only(left: 8, right: 8, top: 30),
           child: Column(children: [
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -53,6 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       alignment: Alignment.topLeft,
                     ),
+                    SizedBox(height: 10),
                     ClothicButtonOutlined(
                       height: 30,
                       fontSize: 14,
