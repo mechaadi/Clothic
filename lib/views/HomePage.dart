@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white70);
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<User>(context);

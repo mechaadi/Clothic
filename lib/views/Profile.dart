@@ -20,6 +20,8 @@ class _ProfilePageState extends State<ProfilePage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   @override
   Widget build(BuildContext context) {
+    var h = MediaQuery.of(context).size.height;
+
     final userProvider = Provider.of<User>(context);
     final authProvider = Provider.of<AuthProvider>(context);
     final itemProvider = Provider.of<List<Donation>>(context);
@@ -49,7 +51,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Text(
                         userProvider.name,
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white70),
                       ),
                       alignment: Alignment.topLeft,
                     ),
@@ -57,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ClothicButtonOutlined(
                       height: 30,
                       fontSize: 14,
-                      color: Colors.white,
+                      color: Colors.white70,
                       text: "Edit profile",
                       onClick: () {},
                     )
@@ -70,12 +74,15 @@ class _ProfilePageState extends State<ProfilePage> {
             Align(
               child: Text(
                 "Donations",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white70),
               ),
               alignment: Alignment.topLeft,
             ),
             Container(
-              height: 350,
+              height: h/1.9,
               child: Expanded(
                 child: StreamBuilder(
                     initialData: [],

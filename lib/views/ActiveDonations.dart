@@ -19,7 +19,7 @@ class _ActiveDonationsState extends State<ActiveDonations> {
   int itemCategory = 0;
   String btnState = "ADD";
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white70);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -30,12 +30,12 @@ class _ItemListState extends State<ItemList> {
               alignment: Alignment.topLeft,
               child: Text(
                 widget.categoryName,
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white70),
               ),
             ),
             Align(
               alignment: Alignment.topRight,
-              child: Icon(Icons.arrow_forward_ios),
+              child: Icon(Icons.arrow_forward_ios, color: Colors.white70,),
             )
           ]),
           SizedBox(
