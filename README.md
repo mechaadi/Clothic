@@ -1,6 +1,6 @@
 # clothic
 
-A new Flutter project.
+Clothic is cross platform cloth donation app.
 
 ## Getting Started
 
