@@ -7,11 +7,9 @@ class AuthProvider extends ChangeNotifier {
   auth.User user;
   StreamSubscription userAuthSub;
   AuthProvider() {
-    print("LOLLL");
     userAuthSub =
         auth.FirebaseAuth.instance.onAuthStateChanged.listen((newUser) {
       user = newUser;
-      print(newUser.toString());
       notifyListeners();
     }, onError: (e) {
       print('AuthProvider - FirebaseAuth - onAuthStateChanged - $e');

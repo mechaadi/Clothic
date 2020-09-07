@@ -14,11 +14,10 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  String password, confirmPassword, name, email, user_type;
+  String password = "", confirmPassword = "", name = "", email = "";
   String btnState = "REGISTER";
   @override
   Widget build(BuildContext context) {
-    // final userProvider = Provider.of<UserProvider>(context);
     return WillPopScope(
         child: Scaffold(
           key: _scaffoldKey,
@@ -34,14 +33,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         alignment: Alignment.topLeft,
                         child: Text(
                           "Register on",
-                          style: TextStyle(fontSize: 40),
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
                           "Clothic",
-                          style: TextStyle(fontSize: 60),
+                          style: TextStyle(
+                              fontSize: 60, fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(
@@ -93,7 +94,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ClothicButton(
                         onClick: () async {
                           handleRegister();
-                          //userProvider.setUser();
                         },
                         text: btnState,
                         color: Colors.redAccent,
@@ -130,6 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
       btnState = "Please wait..";
     });
     if (password != confirmPassword) {
+      btnState = "REGISTER";
       showSnackBar("Password doesn't match", Colors.red, Colors.white);
     }
     if (name != "" && email != "" && password != "") {
@@ -137,15 +138,19 @@ class _RegisterPageState extends State<RegisterPage> {
           User.named(name: name, email: email, address: " ", userType: 0);
 
       var res = await UserApi.createUser(user, password);
-      print(res);
+
       if (res != null) {
-        print(res);
+        btnState = "REGISTER";
         showSnackBar(res, Colors.red, Colors.white);
       } else {
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => LoginPage()));
         setState(() {});
       }
+    } else {
+      btnState = "REGISTER";
+      setState(() {});
+      showSnackBar("All fields are mandatory", Colors.red, Colors.white);
     }
   }
 }

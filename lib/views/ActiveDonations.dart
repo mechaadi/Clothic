@@ -6,13 +6,17 @@ class ActiveDonations extends StatefulWidget {
 }
 
 class _ActiveDonationsState extends State<ActiveDonations> {
-    static const TextStyle optionStyle =
+  static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff1b1b1b),
       body: Container(
-        child: Text('Donations Page', style: optionStyle,),
+        child: Text(
+          'Donations Page',
+          style: optionStyle,
+        ),
       ),
     );
   }

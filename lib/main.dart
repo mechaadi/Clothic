@@ -1,4 +1,6 @@
 import 'package:clothic/providers/auth_provider.dart';
+import 'package:clothic/providers/donation_provider.dart';
+import 'package:clothic/providers/item_provider.dart';
 import 'package:clothic/providers/user_provider.dart';
 import 'package:clothic/views/Login.dart';
 import 'package:clothic/views/Wrapper.dart';
@@ -18,7 +20,9 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final FirebaseServices firebaseServices = FirebaseServices();
+    final UserServices firebaseServices = UserServices();
+    final ItemServices itemServices = ItemServices();
+    final DonationService donationSerices = DonationService();
 
     return MultiProvider(
       providers: [
@@ -27,7 +31,8 @@ class MyApp extends StatelessWidget {
         ),
         StreamProvider(
           create: (_) => firebaseServices.streamHero(),
-        )
+        ),
+        StreamProvider(create: (_) => itemServices.streamItems()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -57,8 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
     AuthProvider authProvider = Provider.of(context);
 
-    return Padding(
-        padding: EdgeInsets.only(top: statusBarHeight),
-        child: authProvider.isAuthenticated ? WrapperPage() : LoginPage());
+    return Scaffold(
+        backgroundColor: Color(0xff1b1b1b),
+        body: Padding(
+            padding: EdgeInsets.only(top: statusBarHeight),
+            child: authProvider.isAuthenticated ? WrapperPage() : LoginPage()));
   }
 }

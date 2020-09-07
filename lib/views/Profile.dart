@@ -1,5 +1,12 @@
+import 'package:clothic/api/user_api.dart';
 import 'package:clothic/common/clothic_button.dart';
+import 'package:clothic/common/clothic_button_outlined.dart';
+import 'package:clothic/model/donation.dart';
+import 'package:clothic/model/user.dart';
 import 'package:clothic/providers/auth_provider.dart';
+import 'package:clothic/providers/item_provider.dart';
+import 'package:clothic/providers/user_provider.dart';
+import 'package:clothic/widgets/item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,16 +20,103 @@ class _ProfilePageState extends State<ProfilePage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<User>(context);
     final authProvider = Provider.of<AuthProvider>(context);
+    final itemProvider = Provider.of<List<Donation>>(context);
     return Scaffold(
-      body: Container(
-          child: ClothicButton(
-        color: Colors.red,
-        text: 'Logout',
-        onClick: () {
-          authProvider.signOut();
-        },
-      )),
-    );
+        backgroundColor: Color(0xff1b1b1b),
+        body: SingleChildScrollView(
+            child: Padding(
+          padding: EdgeInsets.only(left: 8, right: 8),
+          child: Column(children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.network(
+                    userProvider.profilePic,
+                    height: 80.0,
+                    width: 80.0,
+                  ),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                    child: Column(
+                  children: [
+                    Align(
+                      child: Text(
+                        userProvider.name,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      alignment: Alignment.topLeft,
+                    ),
+                    ClothicButtonOutlined(
+                      height: 30,
+                      fontSize: 14,
+                      color: Colors.white,
+                      text: "Edit profile",
+                      onClick: () {},
+                    )
+                  ],
+                )),
+                Expanded(child: Container()),
+              ],
+            ),
+            SizedBox(height: 40),
+            Align(
+              child: Text(
+                "Donations",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              alignment: Alignment.topLeft,
+            ),
+            Container(
+              height: 350,
+              child: Expanded(
+                child: StreamBuilder(
+                    initialData: [],
+                    stream: UserApi.getPosts(),
+                    builder: (context, snapshot) {
+                      List<Donation> donations = snapshot.data;
+                      return GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3, mainAxisSpacing: 20),
+                          itemCount: donations.length,
+                          itemBuilder: (context, i) => Container(
+                                child: ItemWidget(
+                                    image: itemProvider[i].image,
+                                    name: itemProvider[i].name),
+                              ));
+                    }),
+              ),
+              // child: GridView.builder(
+              //     itemCount: itemProvider.length,
+              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //         crossAxisCount: 3),
+              //     itemBuilder: (context, i) =>
+              //         itemProvider[i].user == userProvider.id
+              //             ? Container(
+              //                 child: ItemWidget(
+              //                     image: itemProvider[i].image,
+              //                     name: itemProvider[i].name),
+              //               )
+              //             : Container())),
+            ),
+            ClothicButtonOutlined(
+              height: 40,
+              fontSize: 24,
+              color: Colors.red,
+              text: 'Logout',
+              onClick: () {
+                authProvider.signOut();
+              },
+            )
+          ]),
+        )));
   }
 }
