@@ -81,17 +81,19 @@ class _ProfilePageState extends State<ProfilePage> {
                     stream: UserApi.getPosts(),
                     builder: (context, snapshot) {
                       List<Donation> donations = snapshot.data;
-                      return GridView.builder(
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3, mainAxisSpacing: 20),
-                          itemCount: donations.length,
-                          itemBuilder: (context, i) => Container(
-                                child: ItemWidget(
-                                    image: itemProvider[i].image,
-                                    name: itemProvider[i].name),
-                              ));
+                      if (snapshot.hasData)
+                        return GridView.builder(
+                            shrinkWrap: true,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3, mainAxisSpacing: 20),
+                            itemCount: donations.length,
+                            itemBuilder: (context, i) => Container(
+                                  child: ItemWidget(
+                                      image: itemProvider[i].image,
+                                      name: itemProvider[i].name),
+                                ));
+                      return Text("Loading...");
                     }),
               ),
               // child: GridView.builder(

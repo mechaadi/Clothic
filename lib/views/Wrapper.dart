@@ -32,8 +32,8 @@ class _WrapperPageState extends State<WrapperPage> {
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.track_changes),
-            title: Text('Active Donations'),
+            icon: Icon(Icons.add_box),
+            title: Text('New Donation'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
