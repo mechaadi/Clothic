@@ -10,7 +10,16 @@ Clothic is cross platform cloth donation app.
 </p>
 
 ### Dependencies
-image_picker
-firebase plugins
-provider
-flutter_native_image
+ - image_picker
+ - firebase plugins
+ - provider
+ - flutter_native_image
+
+### Project Structure
+  - **lib**
+    - **api**: Firebase controller functions
+    - **common**: Common widgets like button, input fields etc
+    - **model**: Model classes
+    - **providers**: Various Providers, including some firebase services
+    - **views**: Pages
+    - **widgets**: Individual widgets like item_card etc.
