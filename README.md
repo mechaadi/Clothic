@@ -1,3 +1,10 @@
+<p float="left">
+<img src="https://img.shields.io/github/issues/mechaadi/Clothic"/>
+<img src="https://img.shields.io/github/stars/mechaadi/Clothic"/>
+<img src="https://img.shields.io/github/forks/mechaadi/Clothic"/>
+<img src="https://img.shields.io/github/license/mechaadi/Clothic"/>
+</p>
+
 # Clothic
 To provide clean clothes to those who need them through transparent methods using the latest digital technologies and social media.
 
