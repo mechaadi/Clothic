@@ -4,6 +4,7 @@
 <img src="https://img.shields.io/github/stars/mechaadi/Clothic"/>
 <img src="https://img.shields.io/github/forks/mechaadi/Clothic"/>
 <img src="https://img.shields.io/github/license/mechaadi/Clothic"/>
+<img src="https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fmechaadi%2FClothic%2F"/>
 </p>
 To provide clean clothes to those who need them through transparent methods using the latest digital technologies and social media.
 
