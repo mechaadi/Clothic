@@ -1,6 +1,8 @@
 # Clothic
+To provide clean clothes to those who need them through transparent methods using the latest digital technologies and social media.
 
-Clothic is cross platform cloth donation app.
+We are designing this Mobile app for donating unwanted old clothes. To use the app, users simply snap a photo of the item they would like to give away and then answer a few short questions. The app will then match the item with the appropriate charity and reach out to the user to schedule a pick-up time.
+
 
 ## Screenshots
 <p float="left">
@@ -23,3 +25,5 @@ Clothic is cross platform cloth donation app.
     - **providers**: Various Providers, including some firebase services
     - **views**: Pages
     - **widgets**: Individual widgets like item_card etc.
+    
+### 
