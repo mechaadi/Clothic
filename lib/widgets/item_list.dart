@@ -49,6 +49,7 @@ class _ItemListState extends State<ItemList> {
                       itemBuilder: (context, i) => Container(
                             child: itemProvider[i].cloth_type == widget.category
                                 ? ItemWidget(
+                                    id: itemProvider[i].id,
                                     image: itemProvider[i].image,
                                     name: itemProvider[i].name,
                                   )

@@ -42,6 +42,14 @@ class DonationAPI {
     }
   }
 
+  static Future<Donation> getDonationByID(String id) async {
+    DocumentSnapshot doc =
+        await FirebaseFirestore.instance.collection('donations').doc(id).get();
+    Donation donation = Donation.fromJson(doc.data());
+
+    return donation;
+  }
+
   static Future<String> addDonationItem(Donation donation) async {
     var bytes = utf8.encode(DateTime.now().toString()); // data being hashed
     var digest = sha1.convert(bytes);
