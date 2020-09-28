@@ -57,18 +57,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // creating firebase messaging instance.
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
   void initState() {
     super.initState();
     _firebaseMessaging.configure(
+      // listens to any new notifiaction
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
       },
+      // listens to launch app cycle
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
       },
+      // listens to resume app cycle
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
       },
@@ -80,6 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");
     });
+    // generating device token for future notifications
     _firebaseMessaging.getToken().then((String token) {
       print(token);
       assert(token != null);
