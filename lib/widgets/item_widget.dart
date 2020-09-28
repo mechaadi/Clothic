@@ -20,6 +20,7 @@ class _ItemWidgetState extends State<ItemWidget> {
       child: Padding(
           padding: EdgeInsets.only(right: 8, top: 0, bottom: 4),
           child: Container(
+            width: 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: Color(0xff2a2a2a),
