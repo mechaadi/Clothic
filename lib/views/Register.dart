@@ -22,19 +22,21 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Color(0xff1b1b1b),
-          body: SingleChildScrollView(
+          body: Center(child:SingleChildScrollView(
               child: Padding(
                   padding: EdgeInsets.only(top: 50, left: 24, right: 24),
                   child: Container(
                       child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
                           "Register on",
                           style: TextStyle(
-                              fontSize: 40, fontWeight: FontWeight.bold),
+                              fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),
                       Align(
@@ -42,7 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: Text(
                           "Clothic",
                           style: TextStyle(
-                              fontSize: 60, fontWeight: FontWeight.bold),
+                              fontSize: 60, fontWeight: FontWeight.bold,color: Colors.white),
                         ),
                       ),
                       SizedBox(
@@ -107,7 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         color: Colors.indigo,
                       )
                     ],
-                  )))),
+                  ))))),
         ),
         onWillPop: () async {
           return true;

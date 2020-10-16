@@ -1,3 +1,5 @@
+import 'package:clothic/views/Info.dart';
+import 'package:clothic/views/RecentMessages.dart';
 import 'package:flutter/material.dart';
 import 'package:clothic/views/ActiveDonations.dart';
 import 'package:clothic/views/HomePage.dart';
@@ -19,6 +21,7 @@ class _WrapperPageState extends State<WrapperPage> {
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     ActiveDonations(),
+    RecentMessages(),
     ProfilePage(),
   ];
   @override
@@ -36,9 +39,14 @@ class _WrapperPageState extends State<WrapperPage> {
             title: Text('New Donation'),
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            title: Text('Chats'),
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             title: Text('Profile'),
           ),
+
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.red,

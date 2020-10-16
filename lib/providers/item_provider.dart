@@ -11,6 +11,4 @@ class ItemServices {
     return ref.snapshots().map((list) =>
         list.docs.map((doc) => Donation.fromJson(doc.data())).toList());
   }
-
- 
 }

@@ -15,4 +15,14 @@ class UserServices {
         .snapshots()
         .map((snap) => User.fromJson(snap.data()));
   }
+
+  static Future<User> getUserById(String id) async{
+    FirebaseFirestore _fireStoreDataBase = FirebaseFirestore.instance;
+
+    DocumentSnapshot docUser = await _fireStoreDataBase.collection('users').doc(id).get();
+    print(docUser.data);
+    print("++++++++++++++++++++++");
+    return User.fromJson(docUser.data());
+   
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:clothic/api/donation_api.dart';
 import 'package:clothic/common/clothic_button.dart';
 import 'package:clothic/model/donation.dart';
+import 'package:clothic/views/ChatScreen.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -57,14 +58,27 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ],
                 ),
                 SizedBox(height: 30),
-                Image.network(donation.image),
+                Image.network(
+                  donation.image,
+                  height: 400,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                ),
                 SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                         child: ClothicButton(
-                      onClick: () {},
+                      onClick: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                 
+                          return ChatScreen(
+                            remoteUser: donation.user,
+                          );
+                        }));
+                      },
                       text: 'CHAT',
                       color: Colors.indigo,
                     )),

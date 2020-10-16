@@ -38,6 +38,7 @@ class _ClothicInputState extends State<ClothicInput> {
             ),
             filled: true,
             hintText: widget.hint,
+            
             fillColor: Color(0xff2a2a2a),
             contentPadding: EdgeInsets.only(left: 15, right: 15, top: 8, bottom: 8),
           ),
