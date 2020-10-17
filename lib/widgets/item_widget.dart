@@ -44,7 +44,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                       height: 80,
                       width: 80,
                     ),
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Text(widget.name),

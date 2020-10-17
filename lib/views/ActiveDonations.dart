@@ -5,6 +5,7 @@ import 'package:clothic/common/clothic_button.dart';
 import 'package:clothic/common/clothic_input.dart';
 import 'package:clothic/model/donation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_places_picker/google_places_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ActiveDonations extends StatefulWidget {
@@ -18,8 +19,42 @@ class _ActiveDonationsState extends State<ActiveDonations> {
   String name = "", address = "";
   int itemCategory = 0;
   String btnState = "ADD";
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white70);
+  static const TextStyle optionStyle = TextStyle(
+      fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white70);
+
+  String _placeName = 'Unknown';
+  var country = "IN";
+
+  @override
+  initState() {
+    super.initState();
+    PluginGooglePlacePicker.initialize(
+        androidApiKey: "AIzaSyAapvsp_7XVbTto_nZf_9WI5vBQHtOLMK0");
+  }
+
+  _showAutocomplete() async {
+    String placeName;
+
+
+    var country = "IN";
+
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    var place = await PluginGooglePlacePicker.showAutocomplete(
+        mode: PlaceAutocompleteMode.MODE_OVERLAY,
+        countryCode: country,
+        typeFilter: TypeFilter.ESTABLISHMENT);
+    placeName = place.name;
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _placeName = placeName;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +110,7 @@ class _ActiveDonationsState extends State<ActiveDonations> {
                             ),
                             padding: EdgeInsets.only(left: 8, right: 8),
                           )),
-                      ClothicInput(
+                      InkWell(child:ClothicInput(
                         hint: 'Address',
                         onChange: (v) {
                           setState(() {
@@ -84,7 +119,9 @@ class _ActiveDonationsState extends State<ActiveDonations> {
                         },
                         maxLines: 10,
                         isPassword: false,
-                      ),
+                      ), onTap: (){
+                        _showAutocomplete();
+                      },),
                       SizedBox(
                         height: 20,
                       ),
@@ -149,9 +186,8 @@ class _ActiveDonationsState extends State<ActiveDonations> {
                                     address: address,
                                     image: url,
                                     cloth_type: item));
-                            if(res != null){
-
-                            }else{
+                            if (res != null) {
+                            } else {
                               setState(() {
                                 btnState = "DONE!";
                               });

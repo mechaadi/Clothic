@@ -38,6 +38,9 @@ dependencies:
   firebase_storage: ^4.0.0
   flutter_native_image: ^0.0.5+2
   intl: ^0.16.1
+  url_launcher: ^5.7.5
+  firebase_in_app_messaging: ^0.2.0+3
+  google_places_picker: ^2.1.0+2
 
 dev_dependencies:
   flutter_test:

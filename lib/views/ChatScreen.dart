@@ -1,13 +1,9 @@
 import 'dart:async';
-
-import 'package:clothic/api/chat_api.dart';
-import 'package:clothic/model/chat.dart';
 import 'package:clothic/model/user.dart';
 
 import 'package:clothic/providers/user_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,23 +20,23 @@ class _ChatScreenState extends State<ChatScreen> {
 
   String uid = auth.FirebaseAuth.instance.currentUser.uid;
 
-  User remote;
+  User remote = null;
 
   void getRemoteUser() async {
     remote = await UserServices.getUserById(widget.remoteUser);
     setState(() {});
-    print(remote.name);
   }
 
   @override
   void initState() {
     getRemoteUser();
+     Timer(Duration(milliseconds: 1000),
+            () => _controller.jumpTo(_controller.position.maxScrollExtent));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(uid + "asdasdasdsad" + remote.id);
 
     final userProvider = Provider.of<User>(context);
     return Scaffold(
@@ -65,18 +61,18 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                       ),
                       Padding(
-                        child: Text(
+                        child: remote != null ? Text(
                           remote.name,
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
-                        ),
+                        ) : Container(),
                         padding: EdgeInsets.only(left: 20),
                       )
                     ],
                   ),
                   margin: EdgeInsets.only(bottom: 10, left: 12, right: 12),
                 ),
-                Expanded(
+                remote != null ? Expanded(
                     child: Container(
                   child: ListView(
                     controller: _controller,
@@ -84,16 +80,14 @@ class _ChatScreenState extends State<ChatScreen> {
                       StreamBuilder<QuerySnapshot>(
                         stream: FirebaseFirestore.instance
                             .collection('chats')
-                            .doc(uid)
+                            .doc(userProvider.id)
                             .collection('users')
                             .doc(remote.id)
                             .collection('messages')
                             .orderBy("time", descending: false)
                             .snapshots(),
                         builder: (context, snapshot) {
-                          snapshot.data.docs.forEach((element) {
-                            print(element);
-                          });
+                        
                           if (snapshot.hasData) {
                             return Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -195,8 +189,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                           ))
                                     .toList());
                           } else {
-                            return SizedBox(
-                              child: Text(("LOADINGGG")),
+                            return Expanded(
+                              child: Center(child: CircularProgressIndicator(),),
                             );
                           }
                         },
@@ -204,7 +198,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ],
                   ),
                   margin: EdgeInsets.only(left: 12, right: 12),
-                )),
+                )): Expanded(child: Container(),),
                 Positioned(
                   bottom: 0,
                   left: 0,

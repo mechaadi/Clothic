@@ -1,11 +1,8 @@
 import 'package:clothic/api/user_api.dart';
-import 'package:clothic/common/clothic_button.dart';
 import 'package:clothic/common/clothic_button_outlined.dart';
 import 'package:clothic/model/donation.dart';
 import 'package:clothic/model/user.dart';
 import 'package:clothic/providers/auth_provider.dart';
-import 'package:clothic/providers/item_provider.dart';
-import 'package:clothic/providers/user_provider.dart';
 import 'package:clothic/widgets/item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -84,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Container(
               height: h/1.9,
               child: Expanded(
-                child: StreamBuilder(
+                child: StreamBuilder<List<Donation>>(
                     initialData: [],
                     stream: UserApi.getPosts(),
                     builder: (context, snapshot) {
@@ -101,21 +98,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                       image: itemProvider[i].image,
                                       name: itemProvider[i].name),
                                 ));
-                      return Text("Loading...");
+                      return CircularProgressIndicator();
                     }),
               ),
-              // child: GridView.builder(
-              //     itemCount: itemProvider.length,
-              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //         crossAxisCount: 3),
-              //     itemBuilder: (context, i) =>
-              //         itemProvider[i].user == userProvider.id
-              //             ? Container(
-              //                 child: ItemWidget(
-              //                     image: itemProvider[i].image,
-              //                     name: itemProvider[i].name),
-              //               )
-              //             : Container())),
             ),
             ClothicButtonOutlined(
               height: 40,

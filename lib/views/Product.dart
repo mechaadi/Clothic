@@ -3,6 +3,7 @@ import 'package:clothic/common/clothic_button.dart';
 import 'package:clothic/model/donation.dart';
 import 'package:clothic/views/ChatScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetails extends StatefulWidget {
   final String id;
@@ -73,7 +74,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                       onClick: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
-                 
                           return ChatScreen(
                             remoteUser: donation.user,
                           );
@@ -82,13 +82,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                       text: 'CHAT',
                       color: Colors.indigo,
                     )),
-                    SizedBox(width: 20),
-                    Expanded(
-                        child: ClothicButton(
-                      onClick: () {},
-                      text: 'PICKUP',
-                      color: Colors.indigo,
-                    ))
+                    // SizedBox(width: 20),
+                    // Expanded(
+                    //     child: ClothicButton(
+                    //   onClick: () {},
+                    //   text: 'PICKUP',
+                    //   color: Colors.indigo,
+                    // ))
                   ],
                 ),
                 SizedBox(height: 16),
@@ -104,22 +104,21 @@ class _ProductDetailsState extends State<ProductDetails> {
                   children: [
                     Expanded(
                         child: ClothicButton(
-                      onClick: () {},
+                      onClick: () async {
+                        String googleUrl =
+                            'https://www.google.com/maps?q=${donation.address}';
+                        if (await canLaunch(googleUrl)) {
+                          await launch(googleUrl);
+                        } else {
+                          throw 'Could not open the map.';
+                        }
+                      },
                       text: 'VIEW LOCATION',
                       color: Colors.blueGrey,
                     ))
                   ],
                 ),
                 SizedBox(height: 20),
-                Row(children: [
-                  Container(
-                      child: Flexible(
-                          child: Text(
-                    "Other details, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    style: TextStyle(fontWeight: FontWeight.w300),
-                    textAlign: TextAlign.left,
-                  )))
-                ]),
               ]),
               padding: EdgeInsets.only(top: 40, left: 20, right: 20),
             ),

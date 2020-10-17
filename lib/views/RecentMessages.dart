@@ -42,9 +42,7 @@ class _RecentMessagesState extends State<RecentMessages> {
                           .collection('users')
                           .snapshots(),
                       builder: (context, snapshot) {
-                        snapshot.data.docs.forEach((element) {
-                          print(element);
-                        });
+                       
                         if (snapshot.hasData) {
                           return Column(
                             children: snapshot.data.docs
