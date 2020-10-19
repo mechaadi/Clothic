@@ -11,7 +11,9 @@ exports.donationFunction = functions.firestore
         console.log(change.after.data, " NOTIFACTION DATA", context, " CONTEXT DATA");
 
         const payload = {
+
             notification: {
+                click_action: "FLUTTER_NOTIFICATION_CLICK",
                 title: 'New Item added',
                 body: 'Click to view'
             },
@@ -26,11 +28,15 @@ exports.donationFunction = functions.firestore
 exports.chatFunction = functions.firestore.document('chats/{userID}/users/{remoteUserID}/messages/{msgDocID}').onWrite((change, context) => {
     console.log(change.after.data, " NOTIFACTION DATA", context, " CONTEXT DATA");
     const payload = {
+
         notification: {
+            click_action: "FLUTTER_NOTIFICATION_CLICK",
+
             title: 'New message!',
             body: 'Click to view'
         },
         data: {
+            notificationID: 'chat',
             remoteUser: context.params.remoteUserID
         }
     };
@@ -42,25 +48,10 @@ exports.chatFunction = functions.firestore.document('chats/{userID}/users/{remot
     }).catch(c => console.log(c));
 })
 
+
 exports.helloWorld = functions.https.onRequest((request, response) => {
     functions.logger.info("Hello logs!", {
         structuredData: true
     });
-    const payload = {
-        notification: {
-            title: 'You have been invited to a trip.',
-            body: 'Tap here to check it out!'
-        }
-    };
-
-    admin.messaging().sendToDevice('dGYkcAdXQ5e_J2kWUgMN6E:APA91bFlaqEscyi0tAiHTbMs5zBmcMRCQJQZWAfjAAFO-wmVJglxQjReRO5lgu4B_oGYalNuI28FP_OybKR90xRdlNdmoVASLL1XjatwUZZYtDrAPud8awKOMn7H6xNi8kLq2NeFvMHp', payload)
-
-    response.send("Hello from Firebase!");
-});
-
-exports.helloWorld2 = functions.https.onRequest((request, response) => {
-    functions.logger.info("Hello logs!", {
-        structuredData: true
-    });
-    response.send("Hello from Firebase!");
+    response.send("Hello from Clothic!");
 });
