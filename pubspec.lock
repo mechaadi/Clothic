@@ -141,20 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
-  firebase_in_app_messaging:
-    dependency: "direct main"
-    description:
-      name: firebase_in_app_messaging
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0+3"
   firebase_messaging:
     dependency: "direct main"
     description:
       name: firebase_messaging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0"
+    version: "7.0.3"
   firebase_storage:
     dependency: "direct main"
     description:
@@ -191,13 +184,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  google_places_picker:
-    dependency: "direct main"
-    description:
-      name: google_places_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0+2"
   http:
     dependency: transitive
     description:
@@ -275,13 +261,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.0"
-  platform:
-    dependency: transitive
-    description:
-      name: platform
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.1"
   plugin_platform_interface:
     dependency: transitive
     description:

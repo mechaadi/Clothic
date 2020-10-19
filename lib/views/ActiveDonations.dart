@@ -5,7 +5,6 @@ import 'package:clothic/common/clothic_button.dart';
 import 'package:clothic/common/clothic_input.dart';
 import 'package:clothic/model/donation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_places_picker/google_places_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ActiveDonations extends StatefulWidget {
@@ -28,32 +27,9 @@ class _ActiveDonationsState extends State<ActiveDonations> {
   @override
   initState() {
     super.initState();
-    PluginGooglePlacePicker.initialize(
-        androidApiKey: "AIzaSyAapvsp_7XVbTto_nZf_9WI5vBQHtOLMK0");
+   
   }
 
-  _showAutocomplete() async {
-    String placeName;
-
-
-    var country = "IN";
-
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    var place = await PluginGooglePlacePicker.showAutocomplete(
-        mode: PlaceAutocompleteMode.MODE_OVERLAY,
-        countryCode: country,
-        typeFilter: TypeFilter.ESTABLISHMENT);
-    placeName = place.name;
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _placeName = placeName;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +96,7 @@ class _ActiveDonationsState extends State<ActiveDonations> {
                         maxLines: 10,
                         isPassword: false,
                       ), onTap: (){
-                        _showAutocomplete();
+                        
                       },),
                       SizedBox(
                         height: 20,

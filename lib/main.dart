@@ -14,9 +14,16 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:provider/provider.dart';
 
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
+  if (message.containsKey('data')) {}
+
+  if (message.containsKey('notification')) {}
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Color(0xff1b1b1b)));
   runApp(MyApp());
@@ -61,7 +68,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // creating firebase messaging instance.
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
@@ -69,35 +75,38 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     _firebaseMessaging.configure(
-      // listens to any new notifiaction
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
+        onMessage: (Map<String, dynamic> message) async {
+          print("onMessage: $message");
+          // _showItemDialog(message);
+        },
+        onBackgroundMessage: myBackgroundMessageHandler,
+        onLaunch: (Map<String, dynamic> message) async {
+          if (message['data']['notificationID'] == 'donation') {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    ProductDetails(id: message['data']['donationID'])));
+          }
 
-      },
-      // listens to launch app cycle
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-      },
+          if (message['data']['notificationID'] == 'chat') {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    ChatScreen(remoteUser: message['data']['remoteUser'])));
+          }
+        },
+        onResume: (Map<String, dynamic> message) async {
+          if (message['data']['notificationID'] == 'donation') {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    ProductDetails(id: message['data']['donationID'])));
+          }
 
-      // listens to resume app cycle
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        print("WE ARE HERE.....");
-        // if (message['data']['notificationID'] == 'donation') {
-        //   Navigator.of(context).push(MaterialPageRoute(
-        //       builder: (context) =>
-        //           ProductDetails(id: message['data']['donationID'])));
-        // }
-      },
-    );
-    _firebaseMessaging.requestNotificationPermissions(
-        const IosNotificationSettings(
-            sound: true, badge: true, alert: true, provisional: true));
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
-    // generating device token for future notifications
+          if (message['data']['notificationID'] == 'chat') {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    ChatScreen(remoteUser: message['data']['remoteUser'])));
+          }
+        });
+
     _firebaseMessaging.getToken().then((String token) {
       String uid = auth.FirebaseAuth.instance.currentUser.uid;
 
