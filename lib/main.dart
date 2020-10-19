@@ -82,28 +82,28 @@ class _MyHomePageState extends State<MyHomePage> {
         onBackgroundMessage: myBackgroundMessageHandler,
         onLaunch: (Map<String, dynamic> message) async {
           if (message['data']['notificationID'] == 'donation') {
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                 builder: (context) =>
-                    ProductDetails(id: message['data']['donationID'])));
+                    ProductDetails(id: message['data']['donationID'])), ModalRoute.withName('/'));
           }
 
           if (message['data']['notificationID'] == 'chat') {
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                 builder: (context) =>
-                    ChatScreen(remoteUser: message['data']['remoteUser'])));
+                    ChatScreen(remoteUser: message['data']['remoteUser'])), ModalRoute.withName('/'));
           }
         },
         onResume: (Map<String, dynamic> message) async {
           if (message['data']['notificationID'] == 'donation') {
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                 builder: (context) =>
-                    ProductDetails(id: message['data']['donationID'])));
+                    ProductDetails(id: message['data']['donationID'])), ModalRoute.withName('/'));
           }
 
           if (message['data']['notificationID'] == 'chat') {
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                 builder: (context) =>
-                    ChatScreen(remoteUser: message['data']['remoteUser'])));
+                    ChatScreen(remoteUser: message['data']['remoteUser'])), ModalRoute.withName('/'));
           }
         });
 

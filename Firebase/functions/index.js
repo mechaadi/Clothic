@@ -26,23 +26,26 @@ exports.donationFunction = functions.firestore
     });
 
 exports.chatFunction = functions.firestore.document('chats/{userID}/users/{remoteUserID}/messages/{msgDocID}').onWrite((change, context) => {
-    console.log(change.after.data, " NOTIFACTION DATA", context, " CONTEXT DATA");
-    const payload = {
+    console.log(change.after.data(), " NOTIFACTION DATA", context, " CONTEXT DATA");
+    
 
-        notification: {
-            click_action: "FLUTTER_NOTIFICATION_CLICK",
+    admin.firestore().collection('users').doc(context.params.userID).get().then(async user => {
+        
+        const res = await admin.firestore().collection('users').doc(context.params.remoteUserID).get();
+        let rusername = res.data().name;
+        const payload = {
+            notification: {
+                click_action: "FLUTTER_NOTIFICATION_CLICK",
+                title: `${rusername} sent a message`,
+                body: `${change.after.data().message}`
+            },
+            data: {
+                notificationID: 'chat',
+                remoteUser: context.params.remoteUserID
+            }
+        };
 
-            title: 'New message!',
-            body: 'Click to view'
-        },
-        data: {
-            notificationID: 'chat',
-            remoteUser: context.params.remoteUserID
-        }
-    };
-
-    admin.firestore().collection('users').doc(context.params.userID).get().then(user => {
-        console.log(user.data(), " USER DATA");
+        console.log("SENDING NOTIFICATION")
         admin.messaging().sendToDevice(user.data().token, payload)
         return 'done'
     }).catch(c => console.log(c));

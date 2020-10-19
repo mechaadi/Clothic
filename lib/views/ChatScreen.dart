@@ -37,6 +37,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double c_width = MediaQuery.of(context).size.width * 0.8;
+
     final userProvider = Provider.of<User>(context);
     return Scaffold(
         body: Stack(
@@ -66,23 +68,32 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           ),
                         ),
-                        remote != null ? Padding(child:ClipRRect(child: Image.network(remote.profilePic, height: 40, width: 40), borderRadius: BorderRadius.circular(50), ), padding: EdgeInsets.only(left: 8),): Container(),
+                        remote != null
+                            ? Padding(
+                                child: ClipRRect(
+                                  child: Image.network(remote.profilePic,
+                                      height: 40, width: 40),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                padding: EdgeInsets.only(left: 2),
+                              )
+                            : Container(),
                         remote != null
                             ? Padding(
                                 child: Text(
                                   remote.name,
                                   style: TextStyle(
-                                      fontSize: 30,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                padding: EdgeInsets.only(left: 8),
+                                padding: EdgeInsets.only(left: 4),
                               )
                             : Container(),
                       ],
                     ),
-                    padding: EdgeInsets.only(bottom: 10, top: 35, left: 12, right: 12),
+                    padding: EdgeInsets.only(
+                        bottom: 8, top: 40, left: 12, right: 12),
                   ),
-                 
                 ),
                 remote != null
                     ? Expanded(
@@ -137,6 +148,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                     right: 8),
                                                           ),
                                                           Container(
+                                                            constraints: BoxConstraints(maxWidth: c_width),
                                                               padding: EdgeInsets
                                                                   .symmetric(
                                                                       vertical:
@@ -150,12 +162,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                                                       BorderRadius.all(
                                                                           Radius.circular(
                                                                               8))),
-                                                              child: Row(
-                                                                children: [
+                                                              child: 
                                                                   Text(doc.data()[
                                                                       'message']),
-                                                                ],
-                                                              )),
+                                                                ),
                                                         ],
                                                       )
                                                     ],
@@ -171,25 +181,24 @@ class _ChatScreenState extends State<ChatScreen> {
                                                       Row(
                                                         children: [
                                                           Container(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          12,
-                                                                      horizontal:
-                                                                          16),
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              8))),
-                                                              child: Row(
-                                                                children: [
-                                                                  Text(doc.data()[
-                                                                      'message']),
-                                                                ],
-                                                              )),
+                                                            constraints: BoxConstraints(maxWidth: c_width),
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical:
+                                                                        12,
+                                                                    horizontal:
+                                                                        16),
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .black,
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            8))),
+                                                            child: Text(
+                                                                doc.data()[
+                                                                    'message']),
+                                                          ),
                                                           Container(
                                                             child: ClipRRect(
                                                               borderRadius:
